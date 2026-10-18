@@ -217,9 +217,11 @@ p { margin: 0 0 1em; max-width: var(--measure); }
   border-bottom: 1px solid var(--rule);
 }
 .brands li:last-child { border-bottom: 0; }
-.brands .name { font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
-a.name:hover { color: var(--blue); }
-.brands .name span { font-weight: 300; }
+.brands .name { display: flex; align-items: baseline; gap: 10px; color: var(--ink); text-decoration: none; }
+/* Logodaki yazım: WERKS kalın ve açık aralıklı, alt marka mavi ve monospace */
+.brands .name b { font-weight: 600; font-size: 1rem; letter-spacing: 0.3em; }
+.brands .name span { font-family: var(--font-mono); font-weight: 400; font-size: 1rem; color: var(--blue); letter-spacing: 0.08em; }
+a.name:hover span { text-decoration: underline; text-underline-offset: 4px; }
 .brands p { margin: 0; color: var(--muted); }
 .brands .status { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
 .brands li.is-live .status { color: var(--blue); }
