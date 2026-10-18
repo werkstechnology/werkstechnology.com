@@ -1,0 +1,354 @@
+/* Werks Technology — ortak stil dosyası
+   Renkler ve yazı tipleri kurumsal logo kılavuzundan alınmıştır. */
+
+:root {
+  --ink: #1a1a1a;
+  --blue: #243ce6;
+  --paper: #fbfbfc;
+  --surface: #ffffff;
+  --muted: #565b66;
+  --rule: #d8dbe2;
+  --blue-soft: #eceffd;
+
+  --font-sans: "Prompt", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --measure: 64ch;
+  --gutter: clamp(16px, 4vw, 40px);
+  --spine: 44px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eceef3;
+    --blue: #6f82ff;
+    --paper: #121318;
+    --surface: #1a1c23;
+    --muted: #a3a8b5;
+    --rule: #2e313b;
+    --blue-soft: #1d2340;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--blue); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: var(--gutter);
+  top: 12px;
+  background: var(--surface);
+  padding: 8px 12px;
+  z-index: 10;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Üst bar */
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.brand img { width: 172px; }
+
+.site-nav {
+  display: flex;
+  gap: 28px;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+.site-nav a { color: var(--ink); text-decoration: none; }
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { color: var(--blue); }
+
+/* Akış omurgası: logodaki bağlantı çizgisi sayfa boyunca devam eder.
+   Her bölüm bir ara nokta, son bölüm mavi bitiş noktası. */
+
+.flow {
+  position: relative;
+  padding-left: var(--spine);
+  margin: 0;
+}
+.flow::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 14px;
+  bottom: 36px;
+  width: 22px;
+  border-left: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  border-bottom-left-radius: 14px;
+}
+
+.node {
+  position: relative;
+  padding: 56px 0;
+}
+.node::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--spine) * -1 + 1px);
+  top: 64px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 6px var(--paper);
+}
+.node + .node { border-top: 1px solid var(--rule); }
+
+.node--end::before {
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 18px solid var(--blue);
+  left: calc(var(--spine) * -1 - 1px);
+}
+
+/* Tipografi */
+
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.6em;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(2.1rem, 5.2vw, 3.6rem); max-width: 18ch; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); max-width: 26ch; }
+h3 { font-size: 1.2rem; margin-bottom: 0.4em; }
+
+p { margin: 0 0 1em; max-width: var(--measure); }
+
+.lead {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: var(--muted);
+  max-width: 54ch;
+}
+
+.path {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--blue);
+  margin: 0 0 1.4em;
+}
+
+.muted { color: var(--muted); }
+.after-actions { margin-top: 1.4em; }
+.small { font-size: 0.9rem; }
+
+/* Hero */
+
+.hero { padding-top: 40px; }
+.hero .lead { margin-bottom: 2em; }
+
+/* Logo sloganındaki üç kelime: ölçülebilir / yönetilebilir / otomatik */
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 36px;
+}
+.pillar .path { margin-bottom: 0.6em; }
+.pillar p:not(.path) { color: var(--muted); }
+
+/* Markalar */
+
+.brands {
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.brands li {
+  display: grid;
+  grid-template-columns: 220px 1fr auto;
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.brands li:last-child { border-bottom: 0; }
+.brands .name { font-weight: 600; font-size: 1.15rem; color: var(--ink); text-decoration: none; }
+a.name:hover { color: var(--blue); }
+.brands .name span { font-weight: 300; }
+.brands p { margin: 0; color: var(--muted); }
+.brands .status { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
+.brands li.is-live .status { color: var(--blue); }
+
+/* Butonlar */
+
+.actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.btn {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 2px solid var(--blue);
+  background: var(--blue);
+  color: #ffffff;
+}
+.btn:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); text-decoration: none; }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--paper); }
+
+/* Testler */
+
+.tests {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 32px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+.test { padding: 32px; }
+.test + .test { border-left: 1px solid var(--rule); }
+.test .meta { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2em; }
+.test ul { margin: 0 0 1.6em; padding-left: 1.1em; color: var(--muted); }
+.test li { margin-bottom: 0.3em; }
+
+/* Süreç adımları (gerçek bir sıra olduğu için numaralı) */
+
+.steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 32px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 28px;
+}
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+}
+.steps li::before {
+  content: counter(step);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--blue);
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+.steps h3 { margin-bottom: 0.25em; }
+.steps p { margin: 0; color: var(--muted); }
+
+/* Odak alanları */
+
+.focus {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 28px;
+}
+.focus ul { margin: 0; padding-left: 1.1em; color: var(--muted); }
+.focus li { margin-bottom: 0.4em; }
+
+.note {
+  margin-top: 28px;
+  padding: 16px 20px;
+  background: var(--blue-soft);
+  border-left: 3px solid var(--blue);
+  font-size: 0.95rem;
+}
+.note p { margin: 0; }
+
+/* Alt bilgi */
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  margin-top: 24px;
+}
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 28px;
+  padding-bottom: 40px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.site-footer .slogan { font-family: var(--font-mono); color: var(--blue); }
+
+/* Açılışta omurga çizgisi yukarıdan aşağı çizilir; sayfadaki tek animasyon */
+
+@media (prefers-reduced-motion: no-preference) {
+  .flow::before {
+    transform-origin: top;
+    animation: draw 900ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes draw {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+}
+
+/* Mobil */
+
+@media (max-width: 760px) {
+  :root { --spine: 30px; }
+  .flow::before { left: 5px; width: 14px; border-width: 2px; }
+  .node { padding: 40px 0; }
+  .node::before { width: 14px; height: 14px; top: 47px; left: calc(var(--spine) * -1); }
+  .node--end::before { border-left-width: 9px; border-right-width: 9px; border-bottom-width: 15px; width: 0; height: 0; left: calc(var(--spine) * -1 - 2px); }
+  .brand img { width: 140px; }
+  .site-nav { gap: 18px; font-size: 0.9rem; }
+  .pillars, .focus { grid-template-columns: 1fr; gap: 28px; }
+  .tests { grid-template-columns: 1fr; }
+  .test { padding: 24px; }
+  .test + .test { border-left: 0; border-top: 1px solid var(--rule); }
+  .brands li { grid-template-columns: 1fr; gap: 6px; }
+}
+
+@media (max-width: 420px) {
+  .site-nav .nav-extra { display: none; }
+}
