@@ -1,0 +1,20 @@
+# Bu depo herkese açıktır. Sadece site dosyaları (HTML, CSS, JS, görseller) girer.
+# Aşağıdaki dosya türleri asla depoya girmez.
+*.xlsx
+*.xls
+*.csv
+*.docx
+*.doc
+*.pdf
+*.md.bak
+*.env
+.env*
+*.key
+*.pem
+secrets*
+*_ozel*
+*lead*
+*takip*
+Kontrol_*
+.DS_Store
+Thumbs.db
