@@ -161,6 +161,12 @@ h3 { font-size: 1.2rem; margin-bottom: 0.4em; }
 
 p { margin: 0 0 1em; max-width: var(--measure); }
 
+.motto {
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  margin-bottom: 0.5em;
+}
+
 .lead {
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   color: var(--muted);
@@ -319,24 +325,56 @@ a.name:hover { color: var(--blue); }
 }
 .site-footer .slogan { font-family: var(--font-mono); color: var(--blue); }
 
-/* Açılışta omurga çizgisi yukarıdan aşağı çizilir; sayfadaki tek animasyon */
+/* Kaydırma efekti (site.js "fx" sınıfını ekler; JS yoksa ya da hareket
+   azaltılmışsa sayfa olduğu gibi, her şey açık görünür).
+   Sayfa aşağı indikçe çizgi dolar, ulaşılan bölümün noktası dolar ve
+   bölüm içeriği yerine oturur. Son bölümde mavi bitiş noktası yanar. */
 
-@media (prefers-reduced-motion: no-preference) {
-  .flow::before {
-    transform-origin: top;
-    animation: draw 900ms cubic-bezier(.2,.7,.2,1) both;
-  }
-  @keyframes draw {
-    from { transform: scaleY(0); }
-    to { transform: scaleY(1); }
-  }
+.fx .flow::before { border-color: var(--rule); transition: border-color 400ms ease; }
+.fx .flow.is-done::before { border-color: var(--ink); }
+
+.flow-progress {
+  position: absolute;
+  left: 9px;
+  top: 14px;
+  width: 3px;
+  height: 0;
+  background: var(--ink);
+  pointer-events: none;
 }
+
+.fx .node::before {
+  background: var(--paper);
+  box-shadow: inset 0 0 0 3px var(--ink), 0 0 0 6px var(--paper);
+  transition: background 300ms ease, transform 300ms ease;
+}
+.fx .node.is-active::before { background: var(--ink); }
+
+.fx .node--end::before {
+  background: none;
+  box-shadow: none;
+  border-bottom-color: var(--rule);
+  transition: border-bottom-color 400ms ease, transform 400ms ease;
+}
+.fx .node--end.is-active::before { border-bottom-color: var(--blue); transform: translateY(-2px); }
+
+.fx .node > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 550ms ease, transform 550ms cubic-bezier(.2,.7,.2,1);
+}
+.fx .node.is-active > * { opacity: 1; transform: none; }
+.fx .node.is-active > *:nth-child(2) { transition-delay: 60ms; }
+.fx .node.is-active > *:nth-child(3) { transition-delay: 120ms; }
+.fx .node.is-active > *:nth-child(n+4) { transition-delay: 180ms; }
 
 /* Mobil */
 
 @media (max-width: 760px) {
   :root { --spine: 30px; }
   .flow::before { left: 5px; width: 14px; border-width: 2px; }
+  .flow-progress { left: 5px; width: 2px; }
+  .fx .node::before { box-shadow: inset 0 0 0 2px var(--ink), 0 0 0 5px var(--paper); }
   .node { padding: 40px 0; }
   .node::before { width: 14px; height: 14px; top: 47px; left: calc(var(--spine) * -1); }
   .node--end::before { border-left-width: 9px; border-right-width: 9px; border-bottom-width: 15px; width: 0; height: 0; left: calc(var(--spine) * -1 - 2px); }
@@ -351,4 +389,11 @@ a.name:hover { color: var(--blue); }
 
 @media (max-width: 420px) {
   .site-nav .nav-extra { display: none; }
+}
+
+/* Bitiş noktası nokta değil üçgen; genel nokta stilleri ona uygulanmasın */
+.fx .node--end::before,
+.fx .node--end.is-active::before {
+  background: none;
+  box-shadow: none;
 }
