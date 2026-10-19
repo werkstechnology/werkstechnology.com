@@ -2,7 +2,7 @@
 // Analytics, ziyaretçi "Kabul et" demeden hiç yüklenmez. Tercih tarayıcıda saklanır,
 // alt bilgideki "Çerez tercihleri" bağlantısıyla değiştirilebilir.
 (function () {
-  var GA_ID = "G-XXXXXXXXXX"; // Ölçüm kimliği
+  var GA_ID = "G-RK3D17FH5H"; // Ölçüm kimliği
   var KEY = "werks-cerez-tercihi"; // "kabul" | "ret"
   var root = document.documentElement.getAttribute("data-root") || "";
 
